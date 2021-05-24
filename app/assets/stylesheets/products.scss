@@ -1,0 +1,30 @@
+// Place all the styles related to the Products controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+body {
+    margin: 0;
+}
+.pinImage img {
+    width: 250px;
+    height: 300px;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    background-color: white;
+}
+  
+.container-image{
+    
+    max-width: 1200px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    
+}
+  
+.item-image{
+  display: block;
+    width: 25%;
+    
+    padding-bottom: 50px;
+}
+

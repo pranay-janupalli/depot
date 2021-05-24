@@ -1,0 +1,13 @@
+<%= image_tag(@product.image,style:("width:450px;height:550px")) %>
+<h1><%= @product.product_name %></h1>
+<p><%= @product.description %></p>
+<h3><span>&#8377;</span><%= number_to_currency(@product.price,format:"%n") %></h3>
+<p><%= @product.vendor %></p>
+
+
+<ul>
+  <li><%= link_to "Edit", edit_product_path(@product) %></li>
+  <li><%= link_to "Destroy", product_path(@product),
+                  method: :delete,
+                  data: { confirm: "Are you sure?" } %></li>
+</ul>
