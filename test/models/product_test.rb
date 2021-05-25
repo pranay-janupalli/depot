@@ -43,6 +43,7 @@ class ProductTest < ActiveSupport::TestCase
     assert product.errors[:product_name].none?
     assert product.errors[:description].none?
     assert product.errors[:price].none?
+    assert product.errors[:vendor].none?
     
   end
   
