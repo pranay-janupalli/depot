@@ -36,6 +36,15 @@ class ProductTest < ActiveSupport::TestCase
     
     assert product.errors[:description].any?
   end
+  test "sucess all" do
+    product=Product.last
+    
+    assert product.errors[:image].none?
+    assert product.errors[:product_name].none?
+    assert product.errors[:description].none?
+    assert product.errors[:price].none?
+    
+  end
   
 
 end
