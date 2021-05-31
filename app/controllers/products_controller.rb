@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  include VisitCounter
+  before_action :set_counter, only: [:index]
   def index
     @products = Product.all
   end
@@ -32,11 +34,12 @@ class ProductsController < ApplicationController
     end
   end
   def destroy
-    @article = Product.find(params[:id])
-    @article.destroy
+    @product = Product.find(params[:id])
+    @product.destroy
 
     redirect_to root_path
   end
+ 
   private
     def product_params
       params.require(:product).permit(:product_name, :description, :price, :vendor, :image)

@@ -1,4 +1,9 @@
 <h1>Products</h1>
+<% if @counter > 5 %>
+  <p>
+    Visted <%= @counter %> <%= "time".pluralize(@counter) %> before adding item to cart
+  </p>
+<% end %>
 
 <div class="image-container">
   <% @products.each do |product| %>
@@ -6,6 +11,7 @@
     <div class="pinImage">
    
       <%= link_to image_tag(product.image), product %>
+      
      
       
       
@@ -13,8 +19,8 @@
       </div>
       <%= link_to product.product_name, product %>
       <div>
-      <%= link_to "add to cart",cart_index_path,class:"button"%>
-      <input type="number"  value="1" min="1" />
+      <%= button_to "add to cart",line_items_path(product_id: product)%>
+      
       </div>
     </div>
     
