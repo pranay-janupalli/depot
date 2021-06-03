@@ -1,9 +1,20 @@
 <% if notice %>
 <p id="notice"><%= notice %></p>
 <% end %>
-<h2>Your Pragmatic Cart</h2>
-<ul>
+<h2>Your Cart</h2>
+  
+  
   <% @cart.line_items.each do |item| %>
-    <li><%= item.product.product_name %></li>
+  <div data-controller="hello">
+  <div data-hello-target="detail">
+   <p><strong> <%= item.product.product_name %> </strong><span>&#8377;</span><%= number_to_currency(item.product.price,format:"%n") %></p>
+   </div>
+   
+   
+  
+  <button data-action="click->hello#greet">alert</button>
+  </div>
+
   <% end %>
-</ul>
+  
+
