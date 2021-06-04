@@ -28,7 +28,7 @@ class LineItemsController < ApplicationController
     # @line_item = LineItem.new(line_item_params)
     product = Product.find(params[:product_id])
     
-    @line_item = @cart.line_items.build(product: product)
+    @line_item = @cart.add_product(product)
 
     respond_to do |format|
       if @line_item.save
@@ -78,7 +78,7 @@ class LineItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def line_item_params
-      params.require(:line_item).permit(:product_id, :cart_id)
+      params.require(:line_item).permit(:product_id)
     end
 
    
