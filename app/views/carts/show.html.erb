@@ -9,7 +9,9 @@
   <div data-hello-target="detail">
    <p><strong> <%= item.product.product_name %> </strong><span>&#8377;</span><%= number_to_currency(item.product.price,format:"%n") %></p>
    </div>
-   
+  <div data-hello-target="productdescription">
+  <p><%=item.product.description%></p>
+  </div>
    
   
   <button data-action="click->hello#greet">alert</button>

@@ -10,13 +10,16 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = [ "detail"]
+  static targets = [ "detail" ,"productdescription"]
 
   
   greet(){
     // var nameStr=1;
     // alert(nameStr)
     // console.log(this.detailTarget)
-    alert(this.detailTarget.textContent)
+    var one=this.detailTarget.textContent;
+    var two=this.productdescriptionTarget.textContent;
+    alert(one+two);
+    
   }
 }
