@@ -17,9 +17,17 @@ export default class extends Controller {
     // var nameStr=1;
     // alert(nameStr)
     // console.log(this.detailTarget)
-    var one=this.detailTarget.textContent;
+    var details=this.detailTargets
+    var one =""
+    for (var i=0,len=details.length;i<len;i++)
+    {
+      one +=details[i].textContent;
+
+    }
+    
     var two=this.productdescriptionTarget.textContent;
     alert(one+two);
+    console.log(this.detailTargets)
     
   }
 }
