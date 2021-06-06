@@ -2,7 +2,7 @@ class LineItemsController < ApplicationController
   include CurrentCart
   include VisitCounter
   before_action :set_line_item, only: %i[ show edit update destroy ]
-  before_action :set_cart, only: [:create ]
+  before_action :set_cart, only: [:create, :decrease ]
   before_action :reset_counter, only: [:create]
 
   # GET /line_items or /line_items.json
@@ -68,6 +68,16 @@ class LineItemsController < ApplicationController
       format.html { redirect_to line_items_url, notice: "Line item was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def decrease
+    product=Product.find(params[:product_id])
+    @line_item = @cart.remove_product(product)
+    if @line_item.save
+      redirect_to @line_item.cart
+
+    end
+    
   end
 
   private
