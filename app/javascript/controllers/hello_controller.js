@@ -27,7 +27,7 @@ export default class extends Controller {
     
     var two=this.productdescriptionTarget.textContent;
     alert(one+two);
-    console.log(this.detailTargets)
+    // console.log(this.detailTargets)
     
   }
 }

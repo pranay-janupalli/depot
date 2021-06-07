@@ -2,10 +2,10 @@
 <h2>Your Cart</h2>
   
   <div data-controller="hello">
-  <% @cart.line_items.each do |item| %>
+  <% @cart.line_items.order(:product_id).each do |item| %>
   
   <div data-hello-target="detail">
-   <p><strong><%= item.quantity %> &times; <%= item.product.product_name %> </strong><span>&#8377;</span><%= number_to_currency(item.product.price,format:"%n") %></p>
+   <strong><%= item.quantity %> &times; <%= item.product.product_name %> </strong><span>&#8377;</span><%= number_to_currency(item.total_price,format:"%n") %>
    </div>
   
    
@@ -13,11 +13,11 @@
   
   
   <%= button_to "+",line_items_path(product_id: item.product.id)%>
-  <%= button_to "-",line_items_dec_path(product_id: item.product.id)%>
+  <%= button_to "-",line_items_dec_path(product_id: item.product.id),method: :put%>
 
   <% end %>
   <div data-hello-target="productdescription">
- <span>&#8377;</span><%= number_to_currency(@cart.total_price,format:"%n") %>
+ Total:<span>&#8377;</span><%= number_to_currency(@cart.total_price,format:"%n") %>
  </div>
  <button data-action="click->hello#greet">alert</button>
  </div>
