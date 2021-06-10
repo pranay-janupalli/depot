@@ -20,10 +20,14 @@
  Total:<span>&#8377;</span><%= number_to_currency(@cart.total_price,format:"%n") %>
  </div>
  <button data-action="click->hello#greet">alert</button>
+ 
  </div>
+ <%= @cart.id %>
 
   <%= button_to  'Empty cart', @cart,
                 method: :delete,
                 data: { confirm: 'Are you sure?' } %>
+
+
   
 

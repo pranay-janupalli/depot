@@ -18,13 +18,24 @@
     
       </div>
       <%= link_to product.product_name, product %>
-      <div>
-      <%= button_to "add to cart",line_items_path(product_id: product)%>
+      <%= button_to 'Add to Cart', line_items_path(product_id: product) %>
+      <div data-controller="hello">
       
+      
+      <button data-action="hello#addToCart"  id='<%=product.id%>'>add to cart</button>
       </div>
     </div>
     
   <% end %>
 </div>
+<div data-controller="hello">
+<div id="cartshow">
+<button data-action="click->hello#loadCart">show the cart</button>
+</div>
+
+</div>
 
 <%= link_to "New Product", new_product_path %>
+<div data-controller="hello">
+<div id="car"></div>
+</div>
