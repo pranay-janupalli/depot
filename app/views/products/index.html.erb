@@ -1,11 +1,7 @@
 <h1>Products</h1>
-<% if @counter > 5 %>
-  <p>
-    Visted <%= @counter %> <%= "time".pluralize(@counter) %> before adding item to cart
-  </p>
-<% end %>
 
-<div class="image-container">
+
+<div data-controller="hello" data-hello-url-value="http://localhost:3000/line_items" data-hello-count-value=0 class="image-container"  >
   <% @products.each do |product| %>
     <div class="item-image">
     <div class="pinImage">
@@ -18,24 +14,19 @@
     
       </div>
       <%= link_to product.product_name, product %>
-      <%= button_to 'Add to Cart', line_items_path(product_id: product) %>
-      <div data-controller="hello">
       
       
-      <button data-action="hello#addToCart"  id='<%=product.id%>'>add to cart</button>
-      </div>
+      
+      
+      <button data-action="hello#addToCart" data-session="<%= session[:cart_id]%>" id='<%=product.id%>'>add to cart</button>
+      
     </div>
     
+    
   <% end %>
-</div>
-<div data-controller="hello">
-<div id="cartshow">
-<button data-action="click->hello#loadCart">show the cart</button>
+  <div>Cart count</div>
+  <div data-hello-target="cart">0</div>
 </div>
 
-</div>
 
 <%= link_to "New Product", new_product_path %>
-<div data-controller="hello">
-<div id="car"></div>
-</div>
