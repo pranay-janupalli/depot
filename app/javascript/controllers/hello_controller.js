@@ -76,13 +76,17 @@ export default class extends Controller {
     }).then((response) => {if (response.status == 200 ) { this.countValue=this.countValue+1 ; this.cartTarget.textContent=this.countValue} 
                     else if(response.status == 404) 
                     { 
-                      alert("not added") 
+                      alert("url not found") 
+                    }
+                    else
+                    {
+                      alert("something went wrong")
                     }
                    })
 
     
     
-    
+    console.log(event.target)
     
     // .then((results) => results.text())
     // .then((x) => { document.getElementById("car").innerHTML=x})
