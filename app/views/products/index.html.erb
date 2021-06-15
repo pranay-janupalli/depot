@@ -1,7 +1,7 @@
 <h1>Products</h1>
 
 
-<div data-controller="hello" data-hello-url-value="http://localhost:3000/line_items" data-hello-count-value=<%= (session[:cart_id]) ? Cart.find(session[:cart_id]).line_items.sum { |x| x['quantity']} : 0  %> class="image-container"  >
+<div data-controller="hello" data-hello-url-value=<%= line_items_path %> data-hello-count-value=<%= Cart.quantity_count session[:cart_id] %> class="image-container"  >
   <% @products.each do |product| %>
     <div class="item-image">
     <div class="pinImage">
@@ -28,5 +28,5 @@
   <div data-hello-target="cart"><%=(session[:cart_id]) ? Cart.find(session[:cart_id]).line_items.sum { |x| x['quantity']} : 0 %></div>
 </div>
 
-
+<%=Cart.quantity_count session[:cart_id] %>
 <%= link_to "New Product", new_product_path %>

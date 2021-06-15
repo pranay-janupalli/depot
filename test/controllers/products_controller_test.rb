@@ -9,7 +9,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
     
   end
   test "should get index" do
-    get product_url(@product)
+    get product_url(@product.id)
     assert_response :success
   end
 end

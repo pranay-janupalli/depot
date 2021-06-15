@@ -25,4 +25,12 @@ class Cart < ApplicationRecord
     def total_price
         line_items.to_a.sum { |item| item.total_price }
     end
+
+    def self.quantity_count(id)
+      (id) ? Cart.find(id).line_items.sum { |x| x['quantity']} : 0
+    end
+
+
+
+
 end
