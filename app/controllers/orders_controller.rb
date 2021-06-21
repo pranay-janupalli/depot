@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
   include CurrentCart
   before_action :set_order, only: %i[ show edit update destroy ]
   
-  before_action :set_cart, only: [:new, :create]
+  before_action :set_cart, only: [:new, :create, :update]
   before_action :ensure_cart_isnt_empty, only: :new
 
   # GET /orders or /orders.json
@@ -16,23 +16,31 @@ class OrdersController < ApplicationController
 
   # GET /orders/new
   def new
-    @order = Order.new
+    @order=@cart.order
+    if @order.nil?
+      @order = Order.new
+    else
+      redirect_to edit_order_path(@order.id)
+    end
   end
 
   # GET /orders/1/edit
   def edit
+    @order=Order.find(params[:id])
   end
 
   # POST /orders or /orders.json
   def create
-    @order = Order.new(order_params)
-    @order.add_lineitems_from_cart(@cart)
+    @order = @cart.build_order(order_params)
+    
 
     respond_to do |format|
       if @order.save
-        Cart.destroy(session[:cart_id])
-        session[:cart_id] = nil
-        format.html { redirect_to root_path, notice: "Order was successfully created." }
+        @cart.line_items.each do |line_item|
+          @order.order_items.create!(name: line_item.product.product_name,quantity: line_item.quantity,price: line_item.product.price)
+        end
+        
+        format.html { redirect_to @order, notice: "Order was successfully created." }
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -43,8 +51,13 @@ class OrdersController < ApplicationController
 
   # PATCH/PUT /orders/1 or /orders/1.json
   def update
+    @order=Order.find(params[:id])
     respond_to do |format|
       if @order.update(order_params)
+        @order.order_items.destroy_all
+        @cart.line_items.each do |line_item|
+          @order.order_items.create!(name: line_item.product.product_name,quantity: line_item.quantity,price: line_item.product.price)
+        end
         format.html { redirect_to @order, notice: "Order was successfully updated." }
         format.json { render :show, status: :ok, location: @order }
       else
