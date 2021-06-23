@@ -1,11 +1,12 @@
 class Order < ApplicationRecord
+    has_many :payments
     has_many :order_items
     belongs_to :cart
     
     enum pay_type: {
         "debit card" => 0,
-        "credit card" => 1,
-        "net banking" => 2
+        "credit card" => 1
+        
     }
 
     validates :name, :address, :email, presence: true

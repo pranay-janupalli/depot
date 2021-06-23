@@ -39,8 +39,23 @@ class OrdersController < ApplicationController
         @cart.line_items.each do |line_item|
           @order.order_items.create!(name: line_item.product.product_name,quantity: line_item.quantity,price: line_item.product.price)
         end
+        @total=(@order.order_items.sum { |x| x['quantity']*x['price'] } ) * 100 
         
-        format.html { redirect_to @order, notice: "Order was successfully created." }
+        begin
+          customer=Stripe::Customer.create({email: params[:stripeEmail],source: params[:stripeToken]})
+          charge=Stripe::Charge.create({customer: customer.id,amount: @total.to_i,currency: 'inr' })
+          rescue Stripe::CardError => e
+            return redirect_to edit_order_path(@order)
+        end
+        if charge.status == "succeeded"
+          session[:cart_id]=nil
+          @order.payments.create!(chargeid: charge.id,status: charge.status,amount: (charge.amount)/100 )
+        
+
+        end
+        
+      
+        format.html { return redirect_to @order, notice: "Order was successfully created." }
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -58,7 +73,21 @@ class OrdersController < ApplicationController
         @cart.line_items.each do |line_item|
           @order.order_items.create!(name: line_item.product.product_name,quantity: line_item.quantity,price: line_item.product.price)
         end
-        format.html { redirect_to @order, notice: "Order was successfully updated." }
+        @total=(@order.order_items.sum { |x| x['quantity']*x['price'] } ) * 100 
+        
+        begin
+          customer=Stripe::Customer.create({email: params[:stripeEmail],source: params[:stripeToken]})
+          charge=Stripe::Charge.create({customer: customer.id,amount: @total.to_i,currency: 'inr' })
+          rescue Stripe::CardError => e
+            return redirect_to edit_order_path(@order)
+        end
+        if charge.status == "succeeded"
+          session[:cart_id]=nil
+        
+
+        end
+
+        format.html { return redirect_to @order, notice: "Order was successfully updated." }
         format.json { render :show, status: :ok, location: @order }
       else
         format.html { render :edit, status: :unprocessable_entity }

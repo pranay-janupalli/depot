@@ -31,7 +31,9 @@
     <%= form.select :pay_type, Order.pay_types.keys, prompt: 'Select a payment method'  %>
   </div>
 
-  <div class="actions">
-    <%= form.submit 'Place order'%>
-  </div>
+  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+          data-description="A month's subscription"
+          
+          data-locale="auto"></script>
 <% end %>
