@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :carts
   root "products#index"
   put "/line_items_dec", to: "line_items#decrease", as: "line_items_dec"
+  get "/success", to: "orders#success", as: "orders_success"
 
   resources :products
   

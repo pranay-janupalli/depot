@@ -23,9 +23,4 @@
 <%= link_to 'Edit', edit_order_path(@order) %> |
 <%= link_to 'Back', orders_path %>
 
-  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-          data-description="Payment"
-          data-email='<%=@order.email%>'
-          data-amount='<%=@order.order_items.sum {|x| x['quantity']*x['price']}*100%>'
-          data-locale="auto"></script>
+

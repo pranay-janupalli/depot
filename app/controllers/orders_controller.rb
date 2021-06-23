@@ -47,9 +47,13 @@ class OrdersController < ApplicationController
           rescue Stripe::CardError => e
             return redirect_to edit_order_path(@order)
         end
+        @order.payments.create!(chargeid: charge.id,status: charge.status,amount: (charge.amount)/100 )
         if charge.status == "succeeded"
           session[:cart_id]=nil
-          @order.payments.create!(chargeid: charge.id,status: charge.status,amount: (charge.amount)/100 )
+          return redirect_to orders_success_path
+        elsif charge.status == "failed"
+          return redirect_to edit_order_path(@order)
+          
         
 
         end
@@ -83,7 +87,7 @@ class OrdersController < ApplicationController
         end
         if charge.status == "succeeded"
           session[:cart_id]=nil
-        
+          return redirect_to orders_success_path
 
         end
 
@@ -104,6 +108,14 @@ class OrdersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def success
+
+  end
+
+
+
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
