@@ -6,9 +6,9 @@ class OrderMailer < ApplicationMailer
   #   en.order_mailer.recieved.subject
   #
   
-  def recieved
-    @greeting = "Hi"
+  def recieved(order)
+    @order = order
 
-    mail to: "pranay.janupalli@gmail.com"
+    mail to: order.email, subject: 'Order Confirmation'
   end
 end

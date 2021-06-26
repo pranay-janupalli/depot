@@ -1,5 +1,12 @@
-<h1>Order#recieved</h1>
+<h1>Order Summary</h1>
 
-<p>
-  <%= @greeting %>, find me in app/views/order_mailer/recieved.html.erb
-</p>
+<h3>
+  <%= @order.name %>, Your order has been accepted
+</h3>
+<% @order.order_items.each do |order_item|%>
+  <p><%=order_item.quantity%> &times; <%=order_item.name%>-<span>&#8377;</span><%=number_to_currency(order_item.price * order_item.quantity,format:"%n")%> </p>
+  
+
+<%end%>
+<h4>Total amount paid:<%=@order.payments.last.amount%> </h4>
+
