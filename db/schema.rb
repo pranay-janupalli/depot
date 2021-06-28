@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_28_083626) do
+ActiveRecord::Schema.define(version: 2021_06_28_175231) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,6 +116,16 @@ ActiveRecord::Schema.define(version: 2021_06_28_083626) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "support_requests", force: :cascade do |t|
+    t.string "email"
+    t.string "subject"
+    t.text "body"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "order_id"
+    t.index ["order_id"], name: "index_support_requests_on_order_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -135,4 +145,5 @@ ActiveRecord::Schema.define(version: 2021_06_28_083626) do
   add_foreign_key "order_items", "orders"
   add_foreign_key "orders", "carts"
   add_foreign_key "payments", "orders"
+  add_foreign_key "support_requests", "orders"
 end

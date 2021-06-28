@@ -1,6 +1,7 @@
 class Order < ApplicationRecord
     has_many :payments
     has_many :order_items
+    has_many :support_requests
     belongs_to :cart
     
     enum pay_type: {
