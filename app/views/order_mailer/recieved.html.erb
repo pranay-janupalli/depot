@@ -8,5 +8,5 @@
   
 
 <%end%>
-<h4>Total amount paid:<%=@order.payments.last.amount%> </h4>
+<h4>Total amount paid:-<span>&#8377;</span><%=number_to_currency(@order.payments.last.amount,format: "%n")%> </h4>
 

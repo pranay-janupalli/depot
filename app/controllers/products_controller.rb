@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   include VisitCounter
   before_action :set_counter, only: [:index]
+  before_action :authenticate_user!
   def index
     @products = Product.all
   end
