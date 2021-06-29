@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
   
+ 
   devise_for :users
   resources :payments
   resources :order_items
   resources :orders
   resources :line_items
   resources :carts
+  resources :support_requests, only: [ :index, :update ]
+
   root "products#index"
   put "/line_items_dec", to: "line_items#decrease", as: "line_items_dec"
   get "/success", to: "orders#success", as: "orders_success"

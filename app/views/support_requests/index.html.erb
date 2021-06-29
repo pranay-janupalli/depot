@@ -1,0 +1,22 @@
+<h1>SupportRequests#index</h1>
+<% @support_requests.each do |support_request|%>
+    <h4><%= support_request.email%></h4>
+    <h4><%= support_request.subject%></h4>
+    <h4><%= support_request.body%></h4>
+    <%if support_request.response.blank? %>
+        <%= form_with(model: support_request,local: true) do |form| %>
+            <div>
+                <%= form.label :response, "Write Response" %>
+                <%= form.rich_text_area :response %>
+            </div>
+            <div>
+                <%= form.submit "Send response"%>
+            </div>
+        <%end%>
+    <%else%>
+        <h4>Our Response </h4>
+        <%= support_request.response%>
+    <%end%>
+
+<%end%>
+
