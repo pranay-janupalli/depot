@@ -3,6 +3,19 @@
     <h4><%= support_request.email%></h4>
     <h4><%= support_request.subject%></h4>
     <h4><%= support_request.body%></h4>
+    <% if support_request.order%>
+        <div>name:<%= support_request.order.name%></div>
+        <div>email:<%= support_request.order.email%></div>
+        <div>address:<%= support_request.order.address%></div>
+        <div>Order Items</div>
+        <%support_request.order.order_items.each do |order_item|%>
+            <p><%=order_item.quantity%> &times; <%=order_item.name%>-<span>&#8377;</span><%=number_to_currency(order_item.price * order_item.quantity,format:"%n")%> </p>
+        <%end%>
+        <h4>Total amount paid:-<span>&#8377;</span><%=number_to_currency(support_request.order.payments.last.amount,format: "%n")%> </h4>
+    <%else%>
+        <h3>No order</h3>
+
+    <%end%>
     <%if support_request.response.blank? %>
         <%= form_with(model: support_request,local: true) do |form| %>
             <div>
@@ -17,6 +30,7 @@
         <h4>Our Response </h4>
         <%= support_request.response%>
     <%end%>
+    <div>--------------------------------------------------------------------------------------------------------------</div>
 
 <%end%>
 
